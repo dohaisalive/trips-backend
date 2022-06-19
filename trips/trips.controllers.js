@@ -30,7 +30,7 @@ exports.updateTrip = async (req, res) => {
 
 exports.deleteTrip = async (req, res) => {
   try {
-    const foundTrip = await Account.findById(req.params.tripId);
+    const foundTrip = await Trip.findById(req.params.tripId);
     if (foundTrip) {
       await Trip.remove(foundTrip);
       res.status(204).end();

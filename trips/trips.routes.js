@@ -14,8 +14,8 @@ router.get("/", fetchTrips);
 //create
 router.post("/", createTrip);
 //update
-router.put("/:accountId", updateTrip);
+router.put("/:tripId", updateTrip);
 //delete
-router.delete("/:accountId", deleteTrip);
+router.delete("/:tripId", deleteTrip);
 
 module.exports = router;
