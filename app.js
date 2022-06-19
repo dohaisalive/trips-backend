@@ -6,6 +6,7 @@ const cors = require("cors");
 
 //routes
 const userRoutes = require("./apis/users/users.routes");
+const tripRoutes = require("./apis/trips/trips.routes");
 
 const app = express();
 connectDb();
@@ -15,7 +16,8 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 app.use(cors());
 
-app.use("/users", userRoutes);
+app.use("/trips", tripRoutes);
+app.use(userRoutes);
 
 //all routes should be before this
 app.use((req, res, next) => {
