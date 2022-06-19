@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const TripSchema = new mongoose.Schema({
-  title: { type: Number },
+  title: { type: String },
   description: { type: String },
   image: { type: String, default: "" },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
