@@ -1,4 +1,4 @@
-const Trip = require("../Trip");
+const Trip = require("../../models/Trip");
 
 exports.fetchTrips = async (req, res) => {
   const trips = await Trip.find();
