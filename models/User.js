@@ -12,11 +12,11 @@ const UserSchema = new Schema({
     required: true,
   },
   //   profile of type Object
-  // profile: {
-  //   bio: { type: String },
-  //   profileImage: { type: String },
-  // },
-  // trips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
+  profile: {
+    bio: { type: String },
+    profileImage: { type: String },
+  },
+  trips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
 });
 
 UserSchema.plugin(uniqueValidator);
