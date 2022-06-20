@@ -5,7 +5,8 @@ const {
   createTrip,
   updateTrip,
   deleteTrip,
-} = require("./trips.controllers");
+} = require("./profile.controllers");
+
 
 const router = express.Router();
 
