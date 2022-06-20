@@ -3,7 +3,7 @@ const passport = require("passport");
 
 const router = express.Router();
 
-const { signup, signin, getUsers } = require("./users.controllers");
+const { signup, signin, getUsers ,updateProfile} = require("./users.controllers");
 
 router.post("/signup", signup);
 router.post(
@@ -12,5 +12,6 @@ router.post(
   signin
 );
 router.get("/user", getUsers);
+router.put("/updateProfile/:userId",updateProfile);
 
 module.exports = router;

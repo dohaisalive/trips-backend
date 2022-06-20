@@ -13,8 +13,8 @@ const UserSchema = new Schema({
   },
   //   profile of type Object
   profile: {
-    bio: { type: String },
-    profileImage: { type: String },
+    bio: { type: String ,default:"this is my bio"},
+    profileImage: { type: String,default:"https://icon-library.com/images/anonymous-user-icon/anonymous-user-icon-2.jpg" },
   },
   trips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
 });

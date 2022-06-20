@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
-app.use(cors());
+app.use(cors());  
 
 app.use("/trips", tripRoutes);
 app.use(userRoutes);

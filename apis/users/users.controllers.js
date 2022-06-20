@@ -44,3 +44,17 @@ exports.getUsers = async (req, res) => {
     res.status(500).json("Server Error");
   }
 };
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const foundUser = await User.findById(req.params.userId);
+    if (foundUser) {
+      await User.findByIdAndUpdate(req.params.userId, req.body);
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: "User deosn't exist!" });
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
