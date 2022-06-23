@@ -1,12 +1,16 @@
 const connectDb = require("./DB/database");
 const express = require("express");
-const passport = require("passport");
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
 const cors = require("cors");
 
 //routes
 const userRoutes = require("./apis/users/users.routes");
 const tripRoutes = require("./apis/trips/trips.routes");
+
+//middlewares
+const passport = require("passport");
+const pathNotFound = require("./middleware/pathNotFound");
+const errorHandling = require("./middleware/errorHandling");
 
 const app = express();
 connectDb();
@@ -16,23 +20,12 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 app.use(cors());
 
+//routes
 app.use("/trips", tripRoutes);
 app.use(userRoutes);
 
-//all routes should be before this
-app.use((req, res, next) => {
-  const err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json({
-    error: {
-      message: err.message || "Internal Server Error",
-    },
-  });
-});
+app.use(pathNotFound);
+app.use(errorHandling);
 
 const PORT = 8001;
 app.listen(PORT, () => {

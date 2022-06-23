@@ -10,11 +10,16 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
   //   profile of type Object
   profile: {
-    bio: { type: String ,default:"this is my bio"},
-    profileImage: { type: String,default:"https://icon-library.com/images/anonymous-user-icon/anonymous-user-icon-2.jpg" },
+    bio: { type: String, default: "this is my bio" },
+    profileImage: {
+      type: String,
+      default:
+        "https://icon-library.com/images/anonymous-user-icon/anonymous-user-icon-2.jpg",
+    },
   },
   trips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
 });

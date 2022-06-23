@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRATION } = require("../../config/keys");
 
-exports.signin = async (req, res) => {
+exports.signin = async (req, res, next) => {
   try {
     const payload = {
       _id: req.user._id,
@@ -14,11 +14,11 @@ exports.signin = async (req, res) => {
 
     res.json({ token: token });
   } catch (err) {
-    res.status(500).json("Server Error");
+    next(err);
   }
 };
 
-exports.signup = async (req, res) => {
+exports.signup = async (req, res, next) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     req.body.password = hashedPassword;
@@ -32,29 +32,30 @@ exports.signup = async (req, res) => {
 
     res.json({ token: token });
   } catch (err) {
-    res.status(500).json("Server Error");
+    next(err);
   }
 };
 
-exports.getUsers = async (req, res) => {
+exports.getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     res.status(201).json(users);
   } catch (err) {
-    res.status(500).json("Server Error");
+    next(err);
   }
 };
 
-exports.updateProfile = async (req, res) => {
+exports.updateProfile = async (req, res, next) => {
   try {
-    const foundUser = await User.findById(req.params.userId);
+    const userId = req.user._id;
+    const foundUser = await User.findById(userId);
     if (foundUser) {
-      await User.findByIdAndUpdate(req.params.userId, req.body);
+      await User.findByIdAndUpdate(userId, req.body);
       res.status(204).end();
     } else {
       res.status(404).json({ message: "User deosn't exist!" });
     }
   } catch (error) {
-    res.status(500).json(error);
+    next(err);
   }
 };
