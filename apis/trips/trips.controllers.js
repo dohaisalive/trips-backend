@@ -31,6 +31,20 @@ exports.updateTrip = async (req, res) => {
     res.status(500).json(error);
   }
 };
+exports.updateFav=async(req,res)=>{
+  console.log(req.body);
+  try {
+    const foundTrip = await Trip.findById(req.params.tripId);
+    if(foundTrip)
+    { await Trip.findByIdAndUpdate(req.params.tripId, req.body);
+      res.status(204).end();
+    }
+      } 
+   
+   catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 exports.deleteTrip = async (req, res) => {
   try {

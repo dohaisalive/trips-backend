@@ -6,6 +6,7 @@ const {
   createTrip,
   updateTrip,
   deleteTrip,
+  updateFav
 } = require("./trips.controllers");
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   updateTrip
 );
+router.put("/updateFav/:tripId", updateFav)
 //delete
 router.delete(
   "/:tripId",
