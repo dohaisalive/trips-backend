@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../DB/models/User");
 const bcrypt = require("bcrypt");
 const { fromAuthHeaderAsBearerToken } = require("passport-jwt/lib/extract_jwt");
 const { JWT_SECRET } = require("../config/keys");

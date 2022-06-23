@@ -1,4 +1,4 @@
-const Trip = require("../../models/Trip");
+const Trip = require("../../DB/models/Trip");
 
 exports.fetchTrips = async (req, res) => {
   const trips = await Trip.find();
@@ -32,7 +32,7 @@ exports.deleteTrip = async (req, res) => {
   try {
     const foundTrip = await Trip.findById(req.params.tripId);
     if (foundTrip) {
-      await Trip.remove(foundTrip);
+      await Trip.deleteOne(foundTrip);
       res.status(204).end();
     } else {
       res.status(404).json({ message: "Trip deosn't exist!" });
