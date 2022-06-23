@@ -36,8 +36,6 @@ exports.deleteTrip = async (req, res) => {
   try {
     const foundTrip = await Trip.findById(req.params.tripId);
     if (foundTrip) {
-      console.log(req.user._id);
-      console.log(foundTrip.user);
       if (req.user._id.equals(foundTrip.user)) {
         await Trip.deleteOne(foundTrip);
         res.status(204).end();

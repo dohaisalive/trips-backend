@@ -11,7 +11,6 @@ exports.signin = async (req, res, next) => {
       exp: Date.now() + JWT_EXPIRATION,
     };
     const token = jwt.sign(payload, JWT_SECRET);
-
     res.json({ token: token });
   } catch (err) {
     next(err);
