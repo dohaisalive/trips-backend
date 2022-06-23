@@ -1,4 +1,4 @@
-const connectDb = require("./database");
+const connectDb = require("./DB/database");
 const express = require("express");
 const passport = require("passport");
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
-app.use(cors());  
+app.use(cors());
 
 app.use("/trips", tripRoutes);
 app.use(userRoutes);
