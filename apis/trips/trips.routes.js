@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require("passport");
 
 const {
   fetchTrips,
@@ -12,10 +13,18 @@ const router = express.Router();
 //fetch
 router.get("/", fetchTrips);
 //create
-router.post("/", createTrip);
+router.post("/", passport.authenticate("jwt", { session: false }), createTrip);
 //update
-router.put("/:tripId", updateTrip);
+router.put(
+  "/:tripId",
+  passport.authenticate("jwt", { session: false }),
+  updateTrip
+);
 //delete
-router.delete("/:tripId", deleteTrip);
+router.delete(
+  "/:tripId",
+  passport.authenticate("jwt", { session: false }),
+  deleteTrip
+);
 
 module.exports = router;

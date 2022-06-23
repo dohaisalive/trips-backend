@@ -18,8 +18,12 @@ exports.updateTrip = async (req, res) => {
   try {
     const foundTrip = await Trip.findById(req.params.tripId);
     if (foundTrip) {
-      await Trip.findByIdAndUpdate(req.params.tripId, req.body);
-      res.status(204).end();
+      if (req.user._id.equals(foundTrip.user)) {
+        await Trip.findByIdAndUpdate(req.params.tripId, req.body);
+        res.status(204).end();
+      } else {
+        res.status(404).json({ message: "You're not authorized!" });
+      }
     } else {
       res.status(404).json({ message: "Trip deosn't exist!" });
     }
@@ -32,8 +36,15 @@ exports.deleteTrip = async (req, res) => {
   try {
     const foundTrip = await Trip.findById(req.params.tripId);
     if (foundTrip) {
-      await Trip.deleteOne(foundTrip);
-      res.status(204).end();
+      console.log(req.user._id);
+      console.log(foundTrip.user);
+      if (req.user._id.equals(foundTrip.user)) {
+        await Trip.deleteOne(foundTrip);
+        res.status(204).end();
+      } else {
+        console.log("You're not authorized!");
+        res.status(404).json({ message: "You're not authorized!" });
+      }
     } else {
       res.status(404).json({ message: "Trip deosn't exist!" });
     }

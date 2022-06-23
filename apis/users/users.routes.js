@@ -1,9 +1,14 @@
 const express = require("express");
 const passport = require("passport");
 
-const router = express.Router();
+const {
+  signup,
+  signin,
+  getUsers,
+  updateProfile,
+} = require("./users.controllers");
 
-const { signup, signin, getUsers ,updateProfile} = require("./users.controllers");
+const router = express.Router();
 
 router.post("/signup", signup);
 router.post(
@@ -12,6 +17,10 @@ router.post(
   signin
 );
 router.get("/user", getUsers);
-router.put("/updateProfile/:userId",updateProfile);
+router.put(
+  "/updateProfile",
+  passport.authenticate("jwt", { session: false }),
+  updateProfile
+);
 
 module.exports = router;
